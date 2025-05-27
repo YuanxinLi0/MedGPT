@@ -1,2 +1,4 @@
+db/my_faiss_store.faiss/index.faiss filter=lfs diff=lfs merge=lfs -text
+db/my_faiss_store.faiss/index.pkl filter=lfs diff=lfs merge=lfs -text
 db/my_faiss_store.faiss/index.* filter=lfs diff=lfs merge=lfs -text
 text2vec-base-chinese-paraphrase/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
