@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="description" content="A conversational AI system that listens, learns, and challenges">
+        <meta property="og:title" content="ChatGPT">
+        <meta property="og:description" content="A conversational AI system that listens, learns, and challenges">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+        <link rel="manifest" href="/static/img/site.webmanifest">
+        <link rel="stylesheet" href="/static/css/other.css">
+        <script src="/static/js/icons.js"></script>
+        <script src="/static/js/chat.js" defer></script>
+        <script src="/static/js/markdown-it.min.js"></script>
+        <link rel="stylesheet" href="/static/css/dracula.min.css">
+        <script>
+            const user_image = `<img src="/static/img/user.png" alt="User Avatar">`;
+            const gpt_image = `<img src="/static/img/gpt.png" alt="GPT Avatar">`;
+        </script>
+        <script src="/static/js/highlight.min.js"></script>
+        <script src="/static/js/highlightjs-copy.min.js"></script>
+        <script>
+            window.conversation_id = `{{chat_id}}`
+        </script>
+        <title>ChatGPT</title>
+    </head>
+    
+<style>
+    #message-input {
+    height: 20px; /* 固定高度 */
+    padding: 8px 12px; /* 适当的内边距 */
+    box-sizing: border-box; /* 确保边框和内边距包含在高度内 */
+    outline: none; /* 去除获得焦点时的轮廓线 */
+    background: #fff; /* 背景颜色 */
+    font-size: 16px; /* 字体大小 */
+}
+
+</style>
+<body>
+    <div class="gradient"></div>
+    <div class="row">
+        <div class="box conversations">
+            <div class="top">
+                <button class="new_convo" style="width: 100%;text-align: center;" onclick="new_conversation()">
+                        <i class="fa-regular fa-plus"></i>
+                        <span>新建对话</span>                        
+
+                </button>
+                <div class="spinner"></div>
+            </div>
+            <div class="bottom_buttons">
+                <button onclick="delete_conversations()">
+                    <i class="fa-regular fa-trash"></i>
+                    <span>清空当前对话</span>
+                </button>
+                <div class="info">
+                    <i class="fa-regular fa-circle-info"></i>
+                    <span class="convo-title">作者:MedGPT开发团队<br>
+                        版本: V1.0<br>
+                        开发完成时间: 2024-7-30<br>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="conversation disable-scrollbars">
+            <div class="stop_generating stop_generating-hidden">
+                <button id="cancelButton">
+                    <span>停止响应</span>
+                    <i class="fa-regular fa-stop"></i>
+                </button>
+            </div>
+            <div class="box" id="messages">
+            </div>
+            <div class="user-input">
+                <div class="box input-box">
+                    <input id="message-input" type="text" placeholder="给“AI医疗健康顾问”发消息">
+                    <div id="send-button">
+                        <i class="fa-regular fa-paper-plane-top"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-sidebar">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+function addMessage(sender, messageText) {
+  const messagesContainer = document.getElementById('messages');
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message');
+
+  const userDiv = document.createElement('div');
+  userDiv.classList.add('user');
+
+  const contentDiv = document.createElement('div');
+  contentDiv.classList.add('content');
+  contentDiv.textContent = messageText;
+
+  if (sender === 'user') {
+      messageDiv.classList.add('user-message'); // 为用户消息添加类，使其右对齐
+  } else {
+      messageDiv.classList.add('gpt-message'); // 为 GPT 消息添加类，使其左对齐
+  }
+
+  messageDiv.appendChild(userDiv);
+  messageDiv.appendChild(contentDiv);
+  messagesContainer.appendChild(messageDiv);
+}
+</script>
