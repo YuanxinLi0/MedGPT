@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Mac
+.DS_Store
+
+# 开发配置文件
+config.json
